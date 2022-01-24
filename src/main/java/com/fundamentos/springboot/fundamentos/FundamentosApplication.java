@@ -2,8 +2,10 @@ package com.fundamentos.springboot.fundamentos;
 
 import com.fundamentos.springboot.fundamentos.bean.BeanImplements;
 import com.fundamentos.springboot.fundamentos.bean.MyBean;
+import com.fundamentos.springboot.fundamentos.bean.MyBeanWithProperties;
 import com.fundamentos.springboot.fundamentos.bean.MyBeanwithDependency;
 import com.fundamentos.springboot.fundamentos.component.ComponentDependency;
+import com.fundamentos.springboot.fundamentos.pojo.UserPOJO;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +19,18 @@ public class FundamentosApplication implements CommandLineRunner {
 
 	private MyBeanwithDependency myBeanwithDependency;
 
+	private MyBeanWithProperties myBeanWithProperties;
+
+	private UserPOJO userPOJO;
+
 	FundamentosApplication(@Qualifier("componetTwoImplementation") ComponentDependency componentDependency, MyBean bean,
-						   MyBeanwithDependency myBeanwithDependency){
+						   MyBeanwithDependency myBeanwithDependency, MyBeanWithProperties myBeanWithProperties,
+						   UserPOJO userPOJO){
 		this.componentDependency = componentDependency;
 		this.myBean = bean;
 		this.myBeanwithDependency = myBeanwithDependency;
+		this.myBeanWithProperties = myBeanWithProperties;
+		this.userPOJO = userPOJO;
 	}
 
 	public static void main(String[] args) {
@@ -34,6 +43,9 @@ public class FundamentosApplication implements CommandLineRunner {
 		componentDependency.greet();
 		myBean.print();
 		myBeanwithDependency.printWithDependency();
+		System.out.println(myBeanWithProperties.function());
+		userPOJO.setAge(23);
+		System.out.println(userPOJO.getAge());
 
 	}
 }
